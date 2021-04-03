@@ -1,11 +1,16 @@
-import UserRepository from "../Repositories/User.repository";
+import { findUserByEmail } from "../Core/Interactors/User/index";
+import { Response, Request } from "express";
 class UserCtrl {
-  getUserById = async (req: any, res: any): Promise<void> => {
+  public getUserById = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { email } = body;
+
     try {
-      const { id } = req.params;
-      const data = await UserRepository.find(id);
+      const data = await findUserByEmail(email);
       res.send(data);
-    } catch (e) {}
+    } catch (e) {
+
+    }
   };
 }
 
