@@ -17,12 +17,13 @@ DataBase.connect();
 
 app.use(cors());
 app.use(morgan("dev"));
+app.use(express.json());
 
 // ROUTES
 routes.forEach((route:any) =>app.use(route.path, route.route));
 
 
 app.listen(port, () => {
-  console.log(`Server is running in port: ${port}`);
+  console.log(`Server running in port: ${port}`);
 });
 
