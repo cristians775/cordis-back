@@ -1,9 +1,9 @@
 import { findUserByEmail } from "../Core/Interactors/User/index";
 import { Response, Request } from "express";
-class UserCtrl {
-  public getUserById = async (req: Request, res: Response): Promise<void> => {
-    const { body } = req;
-    const { email } = body;
+
+const getUserByEmail = async (req: Request, res: Response): Promise<void> => {
+    const { query } = req;
+    const { email } = query;
 
     try {
       const data = await findUserByEmail(email);
@@ -12,6 +12,6 @@ class UserCtrl {
 
     }
   };
-}
+export default getUserByEmail
 
-export default new UserCtrl();
+
