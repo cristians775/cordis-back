@@ -1,6 +1,5 @@
 import { IUser } from "./User.interface";
 export interface IGetUser {
-  id: IUser["id"];
   name: IUser["name"];
   lastname: IUser["lastname"];
   username: IUser["username"];
