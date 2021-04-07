@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import getUserByEmail from '../Controllers/User.controller';
+import UserCtrl from '../Controllers/User.controller';
 const UserRoute: Router = Router();
 
-UserRoute.get("/",getUserByEmail);
-
+UserRoute.get("/:id",UserCtrl.getUserById);
+UserRoute.post("/",UserCtrl.addUser);
 
 export default UserRoute;
