@@ -1,5 +1,5 @@
 import { findUserById } from "../Core/Interactors/User/index";
-import { addOneUser } from "../Core/Interactors/User/index";
+import { addUser } from "../Core/Interactors/User/index";
 import { Response, Request } from "express";
 import { IGetUser } from "../Interfaces/User/GetUser.interface";
 import { IAddUserInput } from "../Interfaces/User/AddUserInput.interface";
@@ -14,11 +14,11 @@ class UserCtrl {
       console.log(e);
     }
   };
-  public addOneUser = async (req: Request, res: Response): Promise<void> => {
+  public addUser = async (req: Request, res: Response): Promise<void> => {
     try {
       const { body } = req;
       const newUser: IAddUserInput = body;
-      const data:IGetUser = await addOneUser(newUser);
+      const data:IGetUser = await addUser(newUser);
       res.status(200).send(data);
     } catch (e) {
       res.send({ message: e.message });
