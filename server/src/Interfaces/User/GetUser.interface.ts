@@ -4,6 +4,7 @@ export interface IGetUser {
   lastname: IUser["lastname"];
   username: IUser["username"];
   email: IUser["email"];
+  password?:IUser["password"];
   avatar?: IUser["avatar"];
   description: IUser["description"];
   createdAt?: IUser["createdAt"];
