@@ -5,10 +5,12 @@ import { IGetUser } from "../Interfaces/User/GetUser.interface";
 import { IAddUserInput } from "../Interfaces/User/AddUserInput.interface";
 class UserCtrl {
   public getUserById = async (req: Request, res: Response): Promise<void> => {
-    const { params } = req;
-    const { id } = params;
+    const { query } = req;
+    const { id }: any = query;
     try {
-      const data: IGetUser = await findUserById(id);
+      const queryId = id.split(",");
+      const dataId: string | number[]= queryId.length > 1 ? queryId : queryId[0];
+      const data: IGetUser | IGetUser[] = await findUserById(dataId);
       res.send(data);
     } catch (e) {
       console.log(e);
@@ -18,7 +20,7 @@ class UserCtrl {
     try {
       const { body } = req;
       const newUser: IAddUserInput = body;
-      const data:IGetUser = await addUser(newUser);
+      const data: IGetUser = await addUser(newUser);
       res.status(200).send(data);
     } catch (e) {
       res.send({ message: e.message });
