@@ -4,14 +4,20 @@ import UserModel from "../Models/User.model";
 import { IUserDocument } from "../../Interfaces/User/UserDocument.interface";
 import { IAddUserInput } from "../../Interfaces/User/AddUserInput.interface";
 
+
 export class UserRepository implements IUserRepository {
   public findAll = async (): Promise<IGetUser[]> => {
     const user: IGetUser[] = await UserModel.find();
     return user;
   };
-  public findById = async (id: string | string[]): Promise<IGetUser> => {
-    const user: IGetUser | IGetUser[] = await UserModel.findById(id);
-    return user;
+  public findById = async (id: string | number[] =[]):
+  Promise<IGetUser | IGetUser[]> => {
+    const data: IGetUser | IGetUser[] = Array.isArray(id)
+      ? await UserModel.find({
+        _id: { $in: id },
+      })
+      : await UserModel.findById(id);
+    return data;
   };
 
   public async exists(username: { username: string }): Promise<boolean>;
@@ -25,6 +31,9 @@ export class UserRepository implements IUserRepository {
 
   public add = async (user: IAddUserInput): Promise<IGetUser> => {
     const newUser: IUserDocument = new UserModel(user);
-    return await newUser.save();
+    const { password, ...userResult }: IGetUser = (
+      await newUser.save()
+    ).toObject();
+    return userResult;
   };
 }
