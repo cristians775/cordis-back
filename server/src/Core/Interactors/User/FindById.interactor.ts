@@ -5,7 +5,6 @@ export const findById = (userRepository: UserRepository) => async (
   id: string,
   fields: string
 ) => {
-  console.log(typeof id);
   const UserRepository: UserRepository = userRepository;
   const idParam = id.split(",");
   const fieldsQuery = fields.replace(/\,/g, " ").replace("password", "");
