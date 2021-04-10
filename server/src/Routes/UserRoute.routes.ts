@@ -1,8 +1,9 @@
-import { Router } from 'express';
-import UserCtrl from '../Controllers/User.controller';
+import { Router } from "express";
+import UserCtrl from "../Controllers/User.controller";
 const UserRoute: Router = Router();
 
-UserRoute.get("/",UserCtrl.getUserById);
-UserRoute.post("/",UserCtrl.addUser);
+UserRoute.get("/:id", UserCtrl.getUserById);
+UserRoute.post("/", UserCtrl.addUser);
+UserRoute.delete("/:id", UserCtrl.removeUser);
 
 export default UserRoute;
