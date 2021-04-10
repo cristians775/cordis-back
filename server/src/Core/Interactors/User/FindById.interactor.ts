@@ -3,11 +3,13 @@ import { UserRepository } from "../../Repositories/User.repository";
 
 export const findById = (userRepository: UserRepository) => async (
   id: string,
-  fields: string
+  fields: string = ""
 ) => {
   const UserRepository: UserRepository = userRepository;
-  const idParam = id.split(",");
-  const fieldsQuery = fields.replace(/\,/g, " ").replace("password", "");
+  const idParam: string[] = id.split(",");
+  const fieldsQuery: string = fields
+    .replace(/\,/g, " ")
+    .replace("password", "");
   const user: IGetUser | IGetUser[] = await UserRepository.findById(
     idParam,
     fieldsQuery
