@@ -1,3 +1,4 @@
+import { replaceCommasInFields } from "../../../Utils/replaceCommasInFields";
 import { IGetUser } from "../../../Interfaces/User/GetUser.interface";
 import { UserRepository } from "../../Repositories/User.repository";
 
@@ -7,9 +8,7 @@ export const findById = (userRepository: UserRepository) => async (
 ) => {
   const UserRepository: UserRepository = userRepository;
   const idParam: string[] = id.split(",");
-  const fieldsQuery: string = fields
-    .replace(/\,/g, " ")
-    .replace("password", "");
+  const fieldsQuery: string = replaceCommasInFields(fields);
   const user: IGetUser | IGetUser[] = await UserRepository.findById(
     idParam,
     fieldsQuery
