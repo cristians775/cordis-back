@@ -1,6 +1,7 @@
 import { IGetUser } from "../../../Interfaces/User/GetUser.interface";
 import { IAddUserInput } from "../../../Interfaces/User/AddUserInput.interface";
 import { UserRepository } from "../../Repositories/User.repository";
+import { USER_OR_EMAIL_EXISTS } from "../../../Constants/Wording/User/User.wording";
 
 export const add = (userRepository: UserRepository) => async (
   user: IAddUserInput
@@ -11,7 +12,7 @@ export const add = (userRepository: UserRepository) => async (
   const anyExists =
     (await userRepository.exists({ email })) ||
     (await userRepository.exists({ username }));
-  if (anyExists) throw new Error("El usuario ya existe o email ya existe");
+  if (anyExists) throw new Error(USER_OR_EMAIL_EXISTS);
   const data = await UserRepository.add(newUser);
   return data;
 };
